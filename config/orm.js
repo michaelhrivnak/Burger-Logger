@@ -5,32 +5,36 @@ const connection = require('./connection');
 
 const orm = {
     selectAll: function(table){
-        let result;
-        let query = "select * from ?";
-
-        connection.query(query,[table], (err,res)=>{
-            if (err) throw err;
-            result = res;
+        return new Promise((resolve,reject)=>{
+            
+            let query = "select * from ??";
+    
+            connection.query(query,[table], (err,res)=>{
+                if (err) throw err;
+                resolve(res);
+            });
         });
-        return result;
     },
     insertOne: function(table, column, value){
-        let result;
-        let query = "INSERT INTO ? (?) VALUES ?"
-        connection.query(query,[table,column,value], (err,res)=>{
-            if (err) throw err;
-            result = res.id;
+        
+        return new Promise((resolve,reject)=>{
+            let query = "INSERT INTO ?? (??) VALUES (?)"
+            connection.query(query,[table,column,value], (err,res)=>{
+                if (err) throw err;
+                resolve(res.insertId);
+            });
         });
-        return result;
     },
-    updateOne: function(table, column,value,id){
-        let result;
-        let query = "UPDATE ? SET ? = ? where id = ?"
-        connection.query(query,[table,column,value,id], (err,res)=>{
-            if (err) throw err;
-            result = res.id;
+    updateOne: function(table,column,value,id){
+        
+        return new Promise((resolve,reject)=>{
+            let query = `UPDATE ${table} SET ${column} = ${value} where id = ${id}`
+            
+            connection.query(query, (err,res)=>{
+                if (err) throw err;
+                resolve(res.affectedRows);
+            });
         });
-        return result;
     }
 
 }

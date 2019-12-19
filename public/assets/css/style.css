@@ -1,1 +1,5 @@
 /* add your css here */
+.burgerName{
+    display:inline-block;
+    width: 60%;
+}

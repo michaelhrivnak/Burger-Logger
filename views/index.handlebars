@@ -1,1 +1,16 @@
-<!-- Placeholder ==>
+<!-- Placeholder -->
+<div class="row">
+<div id="unEatenBurgers" class="col-5 offset-1">    
+    {{#each unEatenBurgers}}
+    <div class="burgerContainer">
+        <div class="burgerName">{{id}}. {{burger_name}}</div>
+        <button class="btnDevour" data-id="{{id}}">Devour It!</button>
+    </div>
+    {{/each}}    
+</div>
+<div id="eatenBurgers" class="col-5 offset-1">
+    {{#each eatenBurgers}}
+    <div class="eatenContainer">{{id}}. {{burger_name}}</div>
+    {{/each}}
+</div>
+</div>
